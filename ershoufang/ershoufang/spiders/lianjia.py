@@ -3,6 +3,7 @@ import json
 import re
 import scrapy
 import logging
+from time import time
 from scrapy_redis.spiders import RedisSpider
 from ershoufang.items import LianjiaItem
 from scrapy.exceptions import CloseSpider
@@ -25,13 +26,12 @@ class LianjiaSpider(RedisSpider):
                         )
 
     def parse_city(self, response):
+        house_total_num = response.css('.total span::text').extract_first().strip()
+        if house_total_num == '0':
+            return
         self.parse_page(response)
         max_p = response.css('.house-lst-page-box::attr(page-data)').extract_first()
-        try:
-            max_page = json.loads(max_p)['totalPage']
-        except:
-            logging.warning(max_p)
-            raise CloseSpider('停止爬虫')
+        max_page = json.loads(max_p)['totalPage']
         if max_page != 1:
             for page in range(2, max_page + 1):
                 yield scrapy.Request(

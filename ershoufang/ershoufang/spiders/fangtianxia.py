@@ -19,7 +19,7 @@ class FangtianxiaSpider(RedisSpider):
         city_list = set(re.findall(r'//.{2,20}\.esf\.fang\.com', response.text))
         for city_url in city_list:
             if 'ld' not in city_list:
-                return scrapy.Request(
+                yield scrapy.Request(
                     url='https:' + city_url,
                     callback=self.parse_choose_price
                 )

@@ -13,17 +13,15 @@ class ErshoufangPipeline(object):
 
 
 class MongoPipeline(object):
-    def __init__(self, mongo_uri, mongo_db, mongo_col):
+    def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
-        self.col = mongo_col
 
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
             mongo_uri=crawler.settings.get('MONGO_URI', 'mongodb://localhost:27017/'),
             mongo_db=crawler.settings.get('MONGO_DB'),
-            mongo_col='ershoufang',
         )
 
     def open_spider(self, spider):
@@ -36,10 +34,10 @@ class MongoPipeline(object):
     @defer.inlineCallbacks
     def process_item(self, item, spider):
         out = defer.Deferred()
-        reactor.callInThread(self._insert, item, out)
+        reactor.callInThread(self._insert, item, spider.name, out)
         yield out
         defer.returnValue(item)
 
-    def _insert(self, item, out):
-        self.mongodb[self.col].insert_one(dict(item))
+    def _insert(self, item, col, out):
+        self.mongodb[col].insert_one(dict(item))
         reactor.callFromThread(out.callback, item)

@@ -12,6 +12,7 @@ from scrapy.exceptions import CloseSpider
 class LianjiaSpider(RedisSpider):
     name = 'lianjia'
     allowed_domains = ['lianjia.com']
+    # start_urls = ['https://www.lianjia.com/city/']
     redis_key = 'lianjia:start_urls'
 
     def parse(self, response):

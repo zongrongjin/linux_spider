@@ -13,6 +13,11 @@ class ErshoufangItem(scrapy.Item):
     # name = scrapy.Field()
     pass
 
+class FangtianxiaItem(scrapy.Item):
+    house_room = scrapy.Field()
+    total_price = scrapy.Field()
+    average_price = scrapy.Field()
+
 class LianjiaItem(scrapy.Item):
     house_room = scrapy.Field()
     float_num = scrapy.Field()

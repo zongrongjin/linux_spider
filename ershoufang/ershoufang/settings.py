@@ -31,7 +31,9 @@ REDIS_PORT = "6379"
 MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DB = 'ershoufang'
 
-
+CHANGE_UA_SPIDERS = {
+   'anjuke',
+}
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
@@ -63,9 +65,9 @@ MONGO_DB = 'ershoufang'
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'ershoufang.middlewares.ErshoufangDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'ershoufang.UAmiddlewares': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html

@@ -25,7 +25,7 @@ DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
-REDIS_HOST = "49.235.228.65"
+REDIS_HOST = "localhost"
 REDIS_PORT = "6379"
 
 MONGO_URI = 'mongodb://localhost:27017/'

@@ -8,11 +8,13 @@
 #     https://doc.scrapy.org/en/latest/topics/settings.html
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
+from datetime import datetime
 
 BOT_NAME = 'ershoufang'
 
 SPIDER_MODULES = ['ershoufang.spiders']
 NEWSPIDER_MODULE = 'ershoufang.spiders'
+COMMANDS_MODULE='ershoufang.commands'
 
 # Enables scheduling storing requests queue in redis.
 SCHEDULER = "scrapy_redis.scheduler.Scheduler"
@@ -25,11 +27,17 @@ DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
-REDIS_HOST = "49.235.228.65"
+REDIS_HOST = "127.0.0.1"
 REDIS_PORT = "6379"
 
 MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DB = 'ershoufang'
+
+now_time = datetime.now()
+log_path = 'log/%d-%d-%d.log' % (now_time.year, now_time.month, now_time.day)
+
+LOG_LEVEL = 'DEBUG'
+LOG_FILE = log_path
 
 CHANGE_UA_SPIDERS = {
    'anjuke',
@@ -66,7 +74,7 @@ CHANGE_UA_SPIDERS = {
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'ershoufang.UAmiddlewares': 543,
+   'ershoufang.UAmiddlewares.UAmiddleware': 543,
 }
 
 # Enable or disable extensions

@@ -9,6 +9,8 @@ WORKDIR /code
 #安装Python插件
 RUN pip install -r requirements.txt
 #设置容器工作目录
-WORKDIR /code/vmoredis/vmoredis/spiders
+WORKDIR /code/ershouche/
 #运行命令
-CMD /usr/local/bin/scrapy crawl all
+CMD /usr/local/bin/scrapy crawlall
+#暴露端口
+EXPOSE 22

@@ -27,12 +27,14 @@ DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
-<<<<<<< HEAD
-REDIS_HOST = "127.0.0.1"
-=======
-REDIS_HOST = "localhost"
->>>>>>> 21df41a48d7696f1a92d0e8c8afb2a8777c3ffc0
-REDIS_PORT = "6379"
+# 是否开启扩展，默认为true
+#MYEXE_ENABLE = True
+
+# 无任务自动关闭爬虫，单位秒，默认60 * 30秒，即30分钟
+AUTO_CLOSE_TIME = 15 * 60
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
 
 MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DB = 'ershoufang'
@@ -47,7 +49,7 @@ CHANGE_UA_SPIDERS = {
    'anjuke',
 }
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -83,9 +85,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-#}
+EXTENSIONS = {
+   'ershoufang.exensions.AutoCloseExensions.AutoCloseExension',
+}
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
@@ -96,7 +98,7 @@ ITEM_PIPELINES = {
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
@@ -109,8 +111,9 @@ ITEM_PIPELINES = {
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-#HTTPCACHE_ENABLED = True
-#HTTPCACHE_EXPIRATION_SECS = 0
-#HTTPCACHE_DIR = 'httpcache'
+HTTPCACHE_ENABLED = True
+HTTPCACHE_EXPIRATION_SECS = 0
+HTTPCACHE_DIR = 'dns_cache'
+HTTPCACHE_POLICY = 'scrapy.extensions.httpcache.DummyPolicy'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'

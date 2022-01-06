@@ -1,5 +1,5 @@
 beautifulsoup4==4.7.1
-celery==4.3.0
+celery==5.2.2
 cryptography==2.6.1
 cssselect==1.0.3
 fake-useragent==0.1.11
